@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Alina Akhankova](https://up.htmlacademy.ru/javascript/23/user/567837).
-* Наставник: `Неизвестно`.
+* Наставник: [Максим Кузнецов](https://up.htmlacademy.ru/javascript/23/user/619205).
 
 ---
 
