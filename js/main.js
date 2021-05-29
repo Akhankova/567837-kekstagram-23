@@ -1,24 +1,24 @@
-let string = 'проверка работы функции';
-let stringLength = 140;
+const ourString = 'проверка работы функции';
+const stringLength = 140;
 
-let getLengthRow = function (row, maxLength) {
+const getLengthRow = function (row, maxLength) {
 
   if (row.length<=maxLength) {
-    return true
+    return true;
   }
-  return false
-}
-getLengthRow(string, mstringLength);
+  return false;
+};
+getLengthRow(ourString, stringLength);
 
-let getRandomValue = function (minValue, maxValue) {
-  let invalidValue = "Максимальное значение не должно быть меньше или равно минимальному значению";
-  let negativeValue = "Диапазон может быть только положительный";
+const getRandomValue = function (minValue, maxValue) {
+  const invalidValue = 'Максимальное значение не должно быть меньше или равно минимальному значению';
+  const negativeValue = 'Диапазон может быть только положительный';
   if (minValue>=maxValue) {
-    return invalidValue
+    return invalidValue;
   }
   if (minValue<0 || maxValue<0) {
-    return negativeValue
+    return negativeValue;
   }
-  return Math.floor(Math.random()*(max-min+1)+min);
-}
+  return Math.floor(Math.random()*(maxValue-minValue+1)+minValue);
+};
 getRandomValue();
