@@ -38,7 +38,6 @@ const descriptionId = [];
 for (let index = 1; index <= QUANTITY_ID; index ++) {
   descriptionId.push(index);
 }
-
 const descriptionUrl = [];
 for (let index = 1; index <= QUANTITY_URL; index ++) {
   descriptionUrl.push(index);
@@ -77,23 +76,40 @@ const descriptions = [
 ];
 
 const getRandomArrayElement = (elements) => elements[getRandomValue(0, elements.length - 1)];
+const getNumber = (elements) => {
+  const total = 0;
+  const firstArrayElementIndex = 0;
+  for (let index = 0; index <= elements.length; index++) {
+    const delit = elements.splice(total, 1);
+    return elements[total], delit[firstArrayElementIndex];
+  }
+};
 
+const commentIdNumbers = [];
+const getRandomNumberIdComments = (min, max) => {
+  const number = getRandomValue(min, max);
+  if (commentIdNumbers.includes(number)) {
+    return getRandomNumberIdComments(min, max);
+  } else {
+    commentIdNumbers.push(number);
+    return number;
+  }
+};
 const createFotoDescription = () => {
   const numberOfComments = getRandomValue(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS);
   let messageText = getRandomArrayElement(commentsMessages);
   if (numberOfComments === 2) {
     messageText += getRandomArrayElement(commentsMessages);
   }
-
   return {
-    id: getRandomArrayElement(descriptionId),
-    url: photos/getRandomArrayElement(descriptionUrl).jpg,
+    id: getNumber(descriptionId),
+    url: 'photos/getNumber(descriptionUrl).jpg',
     description: getRandomArrayElement(descriptions),
     likes: getRandomArrayElement(descriptionLikes),
     comments: [
       {
-        id: getRandomValue(MIN_COMMENT_ID, MAX_COMMENT_ID),
-        avatar: img/avatar-getRandomArrayElement(commentsAvatarFotos).svg,
+        id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
+        avatar: 'img/avatar-getRandomArrayElement(commentsAvatarFotos).svg',
         message: messageText,
         name: getRandomArrayElement(names),
       },
@@ -101,6 +117,6 @@ const createFotoDescription = () => {
   };
 };
 
-const similarFotos= new Array(QUANTITY_GENERATED_OBJECTS).fill(null).map(() => createFotoDescription());
+const similarFotos = new Array(QUANTITY_GENERATED_OBJECTS).fill(null).map(() => createFotoDescription());
 console.log(similarFotos);
 
