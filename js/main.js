@@ -5,20 +5,10 @@ const MIN_COMMENT_ID = 1;
 const MAX_COMMENT_ID = 1000;
 const MIN_QUANTITY_COMMENTS = 1;
 const MAX_QUANTITY_COMMENTS = 2;
-
-const ourString = 'проверка работы функции';
-const stringLength = 140;
-const invalidValue = 'Максимальное значение не должно быть меньше или равно минимальному значению';
-const negativeValue = 'Диапазон может быть только положительный';
-
-const urlsAvatars = [
-  'img/avatar-1.svg',
-  'img/avatar-2.svg',
-  'img/avatar-3.svg',
-  'img/avatar-4.svg',
-  'img/avatar-5.svg',
-  'img/avatar-6.svg',
-];
+const STRING_LENGTH = 140;
+const OUR_STRING = 'проверка работы функции';
+const INVALID_VALUE = 'Максимальное значение не должно быть меньше или равно минимальному значению';
+const NEGATIVE_VALUE = 'Диапазон может быть только положительный';
 
 const commentsMessages = [
   'Всё отлично!',
@@ -42,6 +32,7 @@ const descriptions = [
   'Утром, только одна хорошая мысль меняет смысл целого дня.',
   'Надейтесь на лучшее, но не ждите этого.',
 ];
+let urlAvatar = 0;
 
 const getLengthRow = function (row, maxLength) {
 
@@ -50,21 +41,19 @@ const getLengthRow = function (row, maxLength) {
   }
   return false;
 };
-getLengthRow(ourString, stringLength);
+getLengthRow(OUR_STRING, STRING_LENGTH);
 
 const getRandomValue = function (minValue, maxValue) {
   if (minValue >= maxValue) {
-    return invalidValue;
+    return INVALID_VALUE;
   }
   if (minValue < 0 || maxValue < 0) {
-    return negativeValue;
+    return NEGATIVE_VALUE;
   }
   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 };
 
 const getRandomArrayElement = (elements) => elements[getRandomValue(0, elements.length - 1)];
-
-const numberOfMessage = getRandomValue(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS);
 
 const commentIdNumbers = [];
 const getRandomNumberIdComments = (min, max) => {
@@ -76,33 +65,37 @@ const getRandomNumberIdComments = (min, max) => {
     return number;
   }
 };
-const createFotoDescription = (index) => {
-
-  let messageText = getRandomArrayElement(commentsMessages);
+const creatMessage = (elements) => {
+  const numberOfMessage = getRandomValue(MIN_QUANTITY_COMMENTS, MAX_QUANTITY_COMMENTS);
+  let messageText = getRandomArrayElement(elements);
   if (numberOfMessage === 2) {
-    messageText += getRandomArrayElement(commentsMessages);
+    messageText += getRandomArrayElement(elements);
   }
-  return {
-    id: index,
-    url: 'photos/index.jpg',
-    description: getRandomArrayElement(descriptions),
-    likes: getRandomValue(MIN_NUMBER_LIKE, MAX_NUMBER_LIKE),
-    comments: [
-      {
-        id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
-        avatar: getRandomArrayElement(urlsAvatars),
-        message: messageText,
-        name: getRandomArrayElement(names),
-      },
-    ],
-  };
+  return messageText;
 };
+
+const createFotoDescription = (index) => ({
+  id: index,
+  url: 'photos/index.jpg',
+  description: getRandomArrayElement(descriptions),
+  likes: getRandomValue(MIN_NUMBER_LIKE, MAX_NUMBER_LIKE),
+  comments: [
+    {
+      id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
+      avatar: 'img/avatar-urlAvatar.svg',
+      message: creatMessage(commentsMessages),
+      name: getRandomArrayElement(names),
+    },
+  ],
+});
 
 const similarFotos = [];
 
-for (let index = 1; index <= QUANTITY_GENERATED_OBJECTS; index ++) {
+for (let index=1; index<=QUANTITY_GENERATED_OBJECTS; index++) {
+  urlAvatar++;
+  if(urlAvatar%7 === 0) {
+    urlAvatar = 1;
+  }
   const newRandomObjekt = createFotoDescription(index);
   similarFotos.push(newRandomObjekt);
 }
-
-
