@@ -5,11 +5,9 @@ const MIN_COMMENT_ID = 1;
 const MAX_COMMENT_ID = 1000;
 const MIN_QUANTITY_COMMENTS = 1;
 const MAX_QUANTITY_COMMENTS = 2;
-const STRING_LENGTH = 140;
-const OUR_STRING = 'проверка работы функции';
-const INVALID_VALUE = 'Максимальное значение не должно быть меньше или равно минимальному значению';
-const NEGATIVE_VALUE = 'Диапазон может быть только положительный';
-
+const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не должно быть меньше или равно минимальному значению';
+const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
+const MAX_VALUE_AVATAR = 6;
 const commentsMessages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -32,23 +30,13 @@ const descriptions = [
   'Утром, только одна хорошая мысль меняет смысл целого дня.',
   'Надейтесь на лучшее, но не ждите этого.',
 ];
-let urlAvatar = 0;
-
-const getLengthRow = function (row, maxLength) {
-
-  if (row.length <= maxLength) {
-    return true;
-  }
-  return false;
-};
-getLengthRow(OUR_STRING, STRING_LENGTH);
 
 const getRandomValue = function (minValue, maxValue) {
   if (minValue >= maxValue) {
-    return INVALID_VALUE;
+    return INVALID_VALUE_ERROR_TEXT;
   }
   if (minValue < 0 || maxValue < 0) {
-    return NEGATIVE_VALUE;
+    return NEGATIVE_VALUE_ERROR_TEXT;
   }
   return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
 };
@@ -73,16 +61,24 @@ const creatMessage = (elements) => {
   }
   return messageText;
 };
+const creatAvatar = (maxValueAvatar, index) => {
+  if (index > maxValueAvatar && !(index % maxValueAvatar === 0)) {
+    index = index % maxValueAvatar;
+  } else if (index % maxValueAvatar === 0) {
+    index = maxValueAvatar;
+  }
+  return index;
+};
 
 const createFotoDescription = (index) => ({
   id: index,
-  url: 'photos/index.jpg',
+  url: `photos/${index}.jpg`,
   description: getRandomArrayElement(descriptions),
   likes: getRandomValue(MIN_NUMBER_LIKE, MAX_NUMBER_LIKE),
   comments: [
     {
       id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
-      avatar: 'img/avatar-urlAvatar.svg',
+      avatar: `img/avatar-${creatAvatar(MAX_VALUE_AVATAR, index)}.svg`,
       message: creatMessage(commentsMessages),
       name: getRandomArrayElement(names),
     },
@@ -91,11 +87,11 @@ const createFotoDescription = (index) => ({
 
 const similarFotos = [];
 
-for (let index=1; index<=QUANTITY_GENERATED_OBJECTS; index++) {
-  urlAvatar++;
-  if(urlAvatar%7 === 0) {
-    urlAvatar = 1;
-  }
-  const newRandomObjekt = createFotoDescription(index);
-  similarFotos.push(newRandomObjekt);
+/* на map не заменила, т. к. еще очень плохо читаю код с map.
+Можно я его заменю немного позже? С циклами мне легче понимать код на данный момент.
+*/
+
+for (let index = 1; index <= QUANTITY_GENERATED_OBJECTS; index ++) {
+  const newRandomObject = createFotoDescription(index);
+  similarFotos.push(newRandomObject);
 }
