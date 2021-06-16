@@ -31,6 +31,8 @@ const descriptions = [
   'Утром, только одна хорошая мысль меняет смысл целого дня.',
   'Надейтесь на лучшее, но не ждите этого.',
 ];
+
+
 const createFotoDescription = (index) => {
   /* В прошлой домашке я не реализовала это задание. Я просто не заметила это.
 Домашку которую задали сегодня, нужно делать на основе прошлой. И вот тут я заметила что я не выполнила одно условие.
@@ -57,8 +59,8 @@ const createFotoDescription = (index) => {
   };
 };
 
-const similarFotos = [];
 const getArrayObject = (value) => {
+  const similarFotos = [];
   for (let index = 1; index <= value; index ++) {
     const newRandomObject = createFotoDescription(index);
     similarFotos.push(newRandomObject);

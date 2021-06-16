@@ -1,24 +1,24 @@
 import {getArrayObject} from './data.js';
-import {commentsArray} from './data.js';
 
+const QUANTITY_OBJECTS = 25;
 const pictures = document.querySelector('.pictures');
-
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
+const similarPictures = getArrayObject(QUANTITY_OBJECTS);
 
-const similarFotos = getArrayObject();
+const createSimilarFotos = () => {
+  const similarListFragment = document.createDocumentFragment();
+  similarPictures.forEach(({url, likes, comments}) => {
+    const pictureElement = pictureTemplate.cloneNode(true);
+    pictureElement.querySelector('img').src = url;
+    pictureElement.querySelector('.picture__likes').textContent = likes;
+    pictureElement.querySelector('.picture__comments').textContent = comments.length;
+    similarListFragment.appendChild(pictureElement);
+  });
+  return similarListFragment;
+};
 
-const similarListFragment = document.createDocumentFragment();
+pictures.appendChild(createSimilarFotos());
 
-similarFotos.forEach((foto) => {
-  const pictureElement = pictureTemplate.cloneNode(true);
-  pictureElement.querySelector('img').src = foto.url;
-  pictureElement.querySelector('.picture__likes').textContent = foto.likes;
-  pictureElement.querySelector('.picture__comments').textContent = commentsArray.length;
-  /* вот тут не знаю как мне получить кол-во комментариев.
-по логике это должна быть длина массива, но я не уверена.
-*/
-  similarListFragment.appendChild(pictureElement);
-});
-pictures.appendChild(similarListFragment);
+
