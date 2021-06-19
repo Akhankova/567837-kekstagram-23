@@ -4,6 +4,8 @@ const MIN_NUMBER_LIKE = 15;
 const MAX_NUMBER_LIKE = 200;
 const MIN_COMMENT_ID = 1;
 const MAX_COMMENT_ID = 1000;
+const MAX_COMMENT = 5;
+const MIN_COMMENT = 1;
 
 
 const MAX_VALUE_AVATAR = 6;
@@ -29,28 +31,40 @@ const descriptions = [
   'Утром, только одна хорошая мысль меняет смысл целого дня.',
   'Надейтесь на лучшее, но не ждите этого.',
 ];
-const createFotoDescription = (index) => ({
-  id: index,
-  url: `photos/${index}.jpg`,
-  description: getRandomArrayElement(descriptions),
-  likes: getRandomValue(MIN_NUMBER_LIKE, MAX_NUMBER_LIKE),
-  comments: [
-    {
+
+
+const createFotoDescription = (index) => {
+  /* В прошлой домашке я не реализовала это задание. Я просто не заметила это.
+Домашку которую задали сегодня, нужно делать на основе прошлой. И вот тут я заметила что я не выполнила одно условие.
+Вот что у меня отсутствовало: Количество комментариев к каждой фотографии вы определяете на своё усмотрение. Все комментарии генерируются случайным образом.
+Я не могу вынести код за пределы этой функции т к тут все связяно с циклом. Может ты подскажешь вариант?
+  */
+  const commentsArray = [];
+  for (let counter = 1; counter <= getRandomValue(MIN_COMMENT,MAX_COMMENT); counter ++) {
+    const commentElement = {
       id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
       avatar: `img/avatar-${creatAvatar(MAX_VALUE_AVATAR, index)}.svg`,
       message: creatMessage(commentsMessages),
       name: getRandomArrayElement(names),
-    },
-  ],
-});
+    };
+    commentsArray.push(commentElement);
+  }
 
-const similarFotos = [];
+  return {
+    id: index,
+    url: `photos/${index}.jpg`,
+    description: getRandomArrayElement(descriptions),
+    likes: getRandomValue(MIN_NUMBER_LIKE, MAX_NUMBER_LIKE),
+    comments: commentsArray,
+  };
+};
+
 const getArrayObject = (value) => {
+  const similarFotos = [];
   for (let index = 1; index <= value; index ++) {
     const newRandomObject = createFotoDescription(index);
     similarFotos.push(newRandomObject);
   }
   return similarFotos;
 };
-
-export {getArrayObject};
+export {getArrayObject, createFotoDescription};
