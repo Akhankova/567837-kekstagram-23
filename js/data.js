@@ -32,14 +32,14 @@ const descriptions = [
   'Надейтесь на лучшее, но не ждите этого.',
 ];
 
-
+const commentsArray = [];
 const createFotoDescription = (index) => {
   /* В прошлой домашке я не реализовала это задание. Я просто не заметила это.
 Домашку которую задали сегодня, нужно делать на основе прошлой. И вот тут я заметила что я не выполнила одно условие.
 Вот что у меня отсутствовало: Количество комментариев к каждой фотографии вы определяете на своё усмотрение. Все комментарии генерируются случайным образом.
 Я не могу вынести код за пределы этой функции т к тут все связяно с циклом. Может ты подскажешь вариант?
   */
-  const commentsArray = [];
+
   for (let counter = 1; counter <= getRandomValue(MIN_COMMENT,MAX_COMMENT); counter ++) {
     const commentElement = {
       id: getRandomNumberIdComments(MIN_COMMENT_ID, MAX_COMMENT_ID),
@@ -68,3 +68,4 @@ const getArrayObject = (value) => {
   return similarFotos;
 };
 export {getArrayObject, createFotoDescription};
+
