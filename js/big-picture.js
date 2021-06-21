@@ -5,7 +5,7 @@ const socialСomments = document.querySelector('.social__comments');
 
 const getSocialComment = (elements) => {
   const similarListFragment = document.createDocumentFragment();
-
+  socialСomments.innerHTML = '';
   elements.forEach((element) => {
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
@@ -32,7 +32,7 @@ const getBigPictures = (element) => {
   bigPictureImg.querySelector('img').src = element.url;
   bigFoto.querySelector('.likes-count').textContent = element.likes;
   bigFoto.querySelector('.comments-count').textContent = element.comments.length;
-  bigFoto.querySelector('.social__comment').textContent = socialСomments;
-  bigFoto.querySelector('.social__caption').innerHTML = `${element.description}`;
+  getSocialComment(element.comments);
+  bigFoto.querySelector('.social__caption').textContent = element.description;
 };
 export {getBigPictures};
