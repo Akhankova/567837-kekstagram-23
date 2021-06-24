@@ -49,21 +49,31 @@ const getValidComment = () => {
 textDescription.addEventListener('input', getValidComment);
 
 const getValidHashtags = () => {
-  const re = /^#[A-Za-zА-Яа-я0-9]{2,19}$/;
-  //const hastags = textHashtags.value;
-  const abc = textHashtags.value.split(' ');
-  //const hastagsArray = abc;
-  let indexHashtag;
-  for (let index; index <= abc.length; index ++) {
-    indexHashtag = index;
-  }
-  if (re.test(abc) === false) {
-    textHashtags.setCustomValidity('Неверный параметр, ознакомьтесь с условием создания хэштега');
-  } else if (abc.length > 5) {
+  const re = /^#([A-Za-zА-Яа-я0-9]){2,19}$/;
+  const hashtagArrayIncl = [];
+  const hashtag = textHashtags.value;
+  const textHashtagToUp = hashtag.toLowerCase();
+  const hashtags = textHashtagToUp.split(' ');
+  if (hashtags.length > 5 ) {
     textHashtags.setCustomValidity('Hельзя указать больше пяти хэш-тегов');
-  } else {
+  }  else if (hashtags.length < 1) {
     textHashtags.setCustomValidity('');
-  }
+  }  else {textHashtags.setCustomValidity('');}
   textHashtags.reportValidity();
+
+  for (let index=0; index<hashtags.length; index++) {
+    if (re.test(hashtags[index]) === false) {
+      textHashtags.setCustomValidity('Неверный параметр');
+    } else if (hashtags[index].length > 20) {
+      textHashtags.setCustomValidity('Максимальная длина хеш-тега не более 20 символов');
+    } else if (hashtagArrayIncl.includes(hashtags[index])) {
+      textHashtags.setCustomValidity('Хеш-теги не должны повторяться');
+    } else if (!hashtagArrayIncl.includes(hashtags[index])) {
+      hashtagArrayIncl.push(hashtags[index]);
+    } else {textHashtags.setCustomValidity('');}
+    textHashtags.reportValidity();
+  }
 };
 textHashtags.addEventListener('input', getValidHashtags);
+
+
