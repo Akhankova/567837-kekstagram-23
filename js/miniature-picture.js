@@ -4,9 +4,9 @@ import {getBigPictures} from './big-picture.js';
 //import {getSocialComment} from './big-picture.js';
 
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
-const commentsLoader = document.querySelector('.comments-loader');
+//const commentsLoader = document.querySelector('.comments-loader');
 const body = document.querySelector('body');
-const socialCommentCount = document.querySelector('.social__comment-count');
+//const socialCommentCount = document.querySelector('.social__comment-count');
 const bigPicture = document.querySelector('.big-picture');
 const QUANTITY_OBJECTS = 25;
 const pictures = document.querySelector('.pictures');
@@ -26,8 +26,8 @@ const createSimilarFotos = (foto) => {
 
     const getClickMiniature = () => {
       bigPicture.classList.remove('hidden');
-      socialCommentCount.classList.add('hidden');
-      commentsLoader.classList.add('hidden');
+      //socialCommentCount.classList.add('hidden');
+      //commentsLoader.classList.add('hidden');
       body.classList.add('modal-open');
       getBigPictures({url, likes, comments, description});
     };

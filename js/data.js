@@ -4,7 +4,7 @@ const MIN_NUMBER_LIKE = 15;
 const MAX_NUMBER_LIKE = 200;
 const MIN_COMMENT_ID = 1;
 const MAX_COMMENT_ID = 1000;
-const MAX_COMMENT = 6;
+const MAX_COMMENT = 30;
 const MIN_COMMENT = 1;
 
 
