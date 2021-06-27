@@ -50,5 +50,3 @@ const getEscClosePicture = (evt) => {
 };
 
 document.addEventListener('keydown', getEscClosePicture);
-
-

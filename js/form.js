@@ -49,7 +49,7 @@ const getValidComment = () => {
 textDescription.addEventListener('input', getValidComment);
 
 const getValidHashtags = () => {
-  const re = /^#([A-Za-zА-Яа-я0-9]){2,19}$/;
+  const re = /^#[A-Za-zА-Яа-я0-9]{2,19}$/;
   const hashtagArrayIncl = [];
   const hashtag = textHashtags.value;
   const textHashtagToUp = hashtag.toLowerCase();
@@ -62,7 +62,9 @@ const getValidHashtags = () => {
   textHashtags.reportValidity();
 
   for (let index=0; index<hashtags.length; index++) {
-    if (re.test(hashtags[index]) === false) {
+    if (hashtags[index].length < 1) {
+      textHashtags.setCustomValidity('');
+    } else if (re.test(hashtags[index]) === false) {
       textHashtags.setCustomValidity('Неверный параметр');
     } else if (hashtags[index].length > 20) {
       textHashtags.setCustomValidity('Максимальная длина хеш-тега не более 20 символов');
