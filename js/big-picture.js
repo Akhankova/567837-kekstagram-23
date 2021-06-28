@@ -2,7 +2,7 @@
 
 const step = 5;
 const socialCommentCount = document.querySelector('.social__comment-count');
-const commentsCount = document.querySelector('.comments-count');
+//const commentsCount = document.querySelector('.comments-count');
 const socialСomments = document.querySelector('.social__comments');
 const socialСommentsLoader = document.querySelector('.comments-loader');
 const getSocialComment = (elements) => {
@@ -27,31 +27,28 @@ const getSocialComment = (elements) => {
   });
   socialСomments.appendChild(similarListFragment);
 
+
   socialСommentsLoader.classList.remove('hidden');
   for (let conter = 0; conter < step; conter++) {
     if (socialСomments.children.item(conter)) {
       socialСomments.children.item(conter).classList.add('visi');
       socialСomments.children.item(conter).classList.remove('hidden');
     }
+    if (socialСomments.children.item(conter) === socialСomments.children.item(socialСomments.children.length - 1)) {
+      socialСommentsLoader.classList.add('hidden');
+    }
   }
-  const span = ' ';
-  const text = 'комментариев';
-  const isi = 'из';
-  socialCommentCount.innerHTML = socialСomments.children.length + span + isi + span + commentsCount.textContent + span + text;
-
   const commentVisi = document.querySelectorAll('.visi');
   let next = commentVisi[commentVisi.length-1].nextElementSibling;
-  let stepOfComment = 1;
-  let conter = 1;
   const getMoreComments = () => {
+    let stepOfComment = 1;
     while (stepOfComment <= step) {
       if (next && next !== socialСomments.children[socialСomments.children.length-1]) {
         next.classList.add('visi');
         next.classList.remove('hidden');
         next = next.nextElementSibling;
         stepOfComment ++;
-        socialCommentCount.innerHTML = conter + span + isi + span + commentsCount.textContent + span + text;
-        conter++;
+
       } else if (next === socialСomments.children[socialСomments.children.length-1]) {
         next.classList.add('visi');
         next.classList.remove('hidden');
@@ -89,9 +86,10 @@ else if (next === socialСomments.children[socialСomments.children.length-1]) {
         break;
       }
 
-          const span = ' ';
+    const span = ' ';
     const text = 'комментариев';
     const isi = 'из';
-*/
-
+    socialCommentCount.textContent = commentsCount.textContent + span + isi + span + commentsCount.textContent + span + text;
+    */
 export {getBigPictures};
+
