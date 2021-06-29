@@ -1,5 +1,4 @@
 
-const socialСomments = document.querySelector('.social__comments');
 
 //import { getRandomNumberIdComments } from "./util";
 
