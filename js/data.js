@@ -63,3 +63,4 @@ const getArrayObject = (value) => {
   return similarFotos;
 };
 export {getArrayObject, createFotoDescription};
+
