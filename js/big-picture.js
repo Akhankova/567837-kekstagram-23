@@ -1,14 +1,17 @@
 //import { getRandomNumberIdComments } from "./util";
 
 const step = 5;
+
 const socialCommentCount = document.querySelector('.social__comment-count');
 //const commentsCount = document.querySelector('.comments-count');
 const socialСomments = document.querySelector('.social__comments');
 const socialСommentsLoader = document.querySelector('.comments-loader');
 const getSocialComment = (elements) => {
+  let number = 5;
   socialСomments.innerHTML = ' ';
   const similarListFragment = document.createDocumentFragment();
   elements.forEach((element) => {
+    //socialCommentCount.textContent = '';
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
 
@@ -27,7 +30,6 @@ const getSocialComment = (elements) => {
   });
   socialСomments.appendChild(similarListFragment);
 
-
   socialСommentsLoader.classList.remove('hidden');
   for (let conter = 0; conter < step; conter++) {
     if (socialСomments.children.item(conter)) {
@@ -36,6 +38,7 @@ const getSocialComment = (elements) => {
     }
     if (socialСomments.children.item(conter) === socialСomments.children.item(socialСomments.children.length - 1)) {
       socialСommentsLoader.classList.add('hidden');
+      socialCommentCount.textContent = `${socialСomments.children.length} из ${socialСomments.children.length} комментариев`;
     }
   }
   const commentVisi = document.querySelectorAll('.visi');
@@ -48,11 +51,15 @@ const getSocialComment = (elements) => {
         next.classList.remove('hidden');
         next = next.nextElementSibling;
         stepOfComment ++;
-
+        if (stepOfComment === step-1) {
+          number += 5;
+          socialCommentCount.textContent = `${number} из ${socialСomments.children.length} комментариев`;
+        }
       } else if (next === socialСomments.children[socialСomments.children.length-1]) {
         next.classList.add('visi');
         next.classList.remove('hidden');
         socialСommentsLoader.classList.add('hidden');
+        socialCommentCount.textContent = `${socialСomments.children.length} из ${socialСomments.children.length} комментариев`;
         break;
       }else {
         break;
@@ -72,24 +79,5 @@ const getBigPictures = (element) => {
   bigFoto.querySelector('.social__caption').textContent = element.description;
 };
 
-/*const getMore = () => {
-  socialСommentsLoader.classList.add('hidden');
-};
-socialСommentsLoader.addEventListener('click', getMore);
-socialСommentsLoader.classList.remove('hidden');
-
-else if (next === socialСomments.children[socialСomments.children.length-1]) {
-        next.classList.add('visi');
-        next.classList.remove('hidden');
-        socialCommentCount.textContent = commentsCount.textContent + span + isi + span + commentsCount.textContent + span + text;
-        socialСommentsLoader.classList.add('hidden');
-        break;
-      }
-
-    const span = ' ';
-    const text = 'комментариев';
-    const isi = 'из';
-    socialCommentCount.textContent = commentsCount.textContent + span + isi + span + commentsCount.textContent + span + text;
-    */
 export {getBigPictures};
 
