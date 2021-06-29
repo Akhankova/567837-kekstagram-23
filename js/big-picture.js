@@ -1,15 +1,16 @@
 const socialСomments = document.querySelector('.social__comments');
 const getSocialComment = (elements) => {
+
   socialСomments.innerHTML = ' ';
   const similarListFragment = document.createDocumentFragment();
   elements.forEach((element) => {
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
     const socialCommentImg = document.createElement('img');
-    socialCommentImg.src = element.avatar;
-    socialCommentImg.alt = element.name;
     socialCommentImg.width = '35';
     socialCommentImg.height = '35';
+    socialCommentImg.src = element.avatar;
+    socialCommentImg.alt = element.name;
     socialComment.appendChild(socialCommentImg);
     const socialCommentP = document.createElement('p');
     socialCommentP.classList.add('social__text');
