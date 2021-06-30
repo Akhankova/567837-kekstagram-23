@@ -1,17 +1,20 @@
+
+
 //import { getRandomNumberIdComments } from "./util";
 
 const step = 5;
-const socialCommentCount = document.querySelector('.social__comment-count');
-const commentsCount = document.querySelector('.comments-count');
+//const socialCommentCount = document.querySelector('.social__comment-count');
+//const commentsCount = document.querySelector('.comments-count');
 const socialСomments = document.querySelector('.social__comments');
 const socialСommentsLoader = document.querySelector('.comments-loader');
+
 const getSocialComment = (elements) => {
+
   socialСomments.innerHTML = ' ';
   const similarListFragment = document.createDocumentFragment();
   elements.forEach((element) => {
     const socialComment = document.createElement('li');
     socialComment.classList.add('social__comment');
-
     socialComment.classList.add('hidden');
     const socialCommentImg = document.createElement('img');
     socialCommentImg.classList.add('social__picture');
@@ -19,14 +22,19 @@ const getSocialComment = (elements) => {
     socialCommentImg.alt = element.name;
     socialCommentImg.width = '35';
     socialCommentImg.height = '35';
+    socialCommentImg.src = element.avatar;
+    socialCommentImg.alt = element.name;
     socialComment.appendChild(socialCommentImg);
     const socialCommentP = document.createElement('p');
     socialCommentP.classList.add('social__text');
     socialCommentP.innerHTML = element.message;
     socialComment.appendChild(socialCommentP);
     similarListFragment.appendChild(socialComment);
+
   });
   socialСomments.appendChild(similarListFragment);
+
+
   socialСommentsLoader.classList.remove('hidden');
   for (let conter = 0; conter < step; conter++) {
     if (socialСomments.children.item(conter)) {
@@ -57,6 +65,7 @@ const getSocialComment = (elements) => {
   socialСommentsLoader.addEventListener('click', getMoreComments);
 };
 
+
 const getBigPictures = (element) => {
   const bigPictureImg = document.querySelector('.big-picture__img');
   const bigFoto = document.querySelector('.big-picture');
@@ -67,23 +76,5 @@ const getBigPictures = (element) => {
   bigFoto.querySelector('.social__caption').textContent = element.description;
 };
 
-/*const getMore = () => {
-  socialСommentsLoader.classList.add('hidden');
-};
-socialСommentsLoader.addEventListener('click', getMore);
-socialСommentsLoader.classList.remove('hidden');
-
-else if (next === socialСomments.children[socialСomments.children.length-1]) {
-        next.classList.add('visi');
-        next.classList.remove('hidden');
-        socialCommentCount.textContent = commentsCount.textContent + span + isi + span + commentsCount.textContent + span + text;
-        socialСommentsLoader.classList.add('hidden');
-        break;
-      }
-
-          const span = ' ';
-    const text = 'комментариев';
-    const isi = 'из';
-*/
 
 export {getBigPictures};
