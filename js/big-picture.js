@@ -43,7 +43,6 @@ const getSocialComment = (elements) => {
   };
   showComments();
   socialСommentsLoader.addEventListener('click', showComments);
-
   socialСomments.appendChild(similarListFragment);
 };
 
