@@ -37,7 +37,6 @@ const createSimilarFotos = (foto) => {
 
 };
 pictures.appendChild(createSimilarFotos(similarPictures));
-
 const getCloseBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
