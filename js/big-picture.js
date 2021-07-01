@@ -1,3 +1,4 @@
+
 //import { getRandomNumberIdComments } from "./util";
 
 const socialCommentCount = document.querySelector('.social__comment-count');
@@ -42,7 +43,38 @@ const getSocialComment = (elements) => {
   };
   showComments();
   socialСommentsLoader.addEventListener('click', showComments);
+
   socialСomments.appendChild(similarListFragment);
+
+
+  socialСommentsLoader.classList.remove('hidden');
+  for (let conter = 0; conter < step; conter++) {
+    if (socialСomments.children.item(conter)) {
+      socialСomments.children.item(conter).classList.add('visi');
+      socialСomments.children.item(conter).classList.remove('hidden');
+    }
+  }
+  const commentVisi = document.querySelectorAll('.visi');
+  let next = commentVisi[commentVisi.length-1].nextElementSibling;
+  let stepOfComment = 1;
+  const getMoreComments = () => {
+    while (stepOfComment <= step) {
+      if (next && next !== socialСomments.children[socialСomments.children.length-1]) {
+        next.classList.add('visi');
+        next.classList.remove('hidden');
+        next = next.nextElementSibling;
+        stepOfComment ++;
+      } else if (next === socialСomments.children[socialСomments.children.length-1]) {
+        next.classList.add('visi');
+        next.classList.remove('hidden');
+        socialСommentsLoader.classList.add('hidden');
+        break;
+      }else {
+        break;
+      }
+    }
+  };
+  socialСommentsLoader.addEventListener('click', getMoreComments);
 };
 
 const getBigPictures = (element) => {

@@ -7,13 +7,15 @@ const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const textarea = document.querySelector('textarea');
 
-const getInputUploadFile = () => {
+const getInputUploadFile = (evt) => {
+  evt.preventDefault();
   imgUploadOverlay.classList.remove('hidden');
   bodyDoc.classList.add('modal-open');
 };
 uploadFile.addEventListener('input', getInputUploadFile);
 
-const getCloseUploadCancel = () => {
+const getCloseUploadCancel = (evt) => {
+  evt.preventDefault();
   imgUploadOverlay.classList.add('hidden');
   bodyDoc.classList.remove('modal-open');
   uploadFile.value = '';
@@ -22,6 +24,7 @@ uploadCancel.addEventListener('click', getCloseUploadCancel);
 
 const getEscCloseUploadCancel = (evt) => {
   if (evt.keyCode === 27) {
+    evt.preventDefault();
     imgUploadOverlay.classList.add('hidden');
     bodyDoc.classList.remove('modal-open');
     uploadFile.value = '';
@@ -31,13 +34,15 @@ document.addEventListener('keydown', getEscCloseUploadCancel);
 
 const getЕextDescriptionFocus = (evt) => {
   if (evt.keyCode === 27) {
+    evt.preventDefault();
     evt.stopPropagation();
   }
 };
 textarea.addEventListener('keydown', getЕextDescriptionFocus);
 textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
 
-const getValidComment = () => {
+const getValidComment = (evt) => {
+  evt.preventDefault();
   const textDescriptionLength = textDescription.value.length;
   if (textDescriptionLength > COMMENT_LENGTH) {
     textDescription.setCustomValidity(`Длина комментария не может составлять больше ${COMMENT_LENGTH} символов`);
@@ -48,8 +53,9 @@ const getValidComment = () => {
 };
 textDescription.addEventListener('input', getValidComment);
 
-const getValidHashtags = () => {
-  const re = /^#([A-Za-zА-Яа-я0-9]){2,19}$/;
+const getValidHashtags = (evt) => {
+  evt.preventDefault();
+  const re = /^#[A-Za-zА-Яа-я0-9]{2,19}$/;
   const hashtagArrayIncl = [];
   const hashtag = textHashtags.value;
   const textHashtagToUp = hashtag.toLowerCase();
@@ -62,7 +68,9 @@ const getValidHashtags = () => {
   textHashtags.reportValidity();
 
   for (let index=0; index<hashtags.length; index++) {
-    if (re.test(hashtags[index]) === false) {
+    if (hashtags[index].length < 1) {
+      textHashtags.setCustomValidity('');
+    } else if (re.test(hashtags[index]) === false) {
       textHashtags.setCustomValidity('Неверный параметр');
     } else if (hashtags[index].length > 20) {
       textHashtags.setCustomValidity('Максимальная длина хеш-тега не более 20 символов');
