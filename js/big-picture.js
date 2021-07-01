@@ -1,3 +1,4 @@
+
 //import { getRandomNumberIdComments } from "./util";
 
 const socialCommentCount = document.querySelector('.social__comment-count');
@@ -42,6 +43,7 @@ const getSocialComment = (elements) => {
   };
   showComments();
   socialСommentsLoader.addEventListener('click', showComments);
+
   socialСomments.appendChild(similarListFragment);
 };
 
