@@ -1,3 +1,7 @@
+
+import './nouislider/nouislider.js';
+import './slider.js';
+
 const COMMENT_LENGTH = 140;
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -6,11 +10,20 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const textarea = document.querySelector('textarea');
+const imgUploadPreview = document.querySelector('.img-upload__preview');
+const imgPreview = imgUploadPreview.querySelector('img');
+const scaleControlValue = document.querySelector('.scale__control--value');
+const scaleControlSmall = document.querySelector('.scale__control--smaller');
+const scaleControlBig = document.querySelector('.scale__control--bigger');
+const effectLevelSlider = document.querySelector('.effect-level__slider');
+const imgUploadForm = document.querySelector('.img-upload__form');
 
 const getInputUploadFile = (evt) => {
   evt.preventDefault();
   imgUploadOverlay.classList.remove('hidden');
   bodyDoc.classList.add('modal-open');
+  scaleControlValue.value = '100%';
+  effectLevelSlider.classList.add('hidden');
 };
 uploadFile.addEventListener('input', getInputUploadFile);
 
@@ -19,6 +32,12 @@ const getCloseUploadCancel = (evt) => {
   imgUploadOverlay.classList.add('hidden');
   bodyDoc.classList.remove('modal-open');
   uploadFile.value = '';
+  scaleControlValue.value  = '';
+  imgUploadPreview.style.transform = '';
+  imgPreview.style.filter = '';
+  imgUploadPreview.className = '';
+  imgUploadPreview.classList.add('img-upload__preview');
+  imgUploadForm.reset();
 };
 uploadCancel.addEventListener('click', getCloseUploadCancel);
 
@@ -28,6 +47,12 @@ const getEscCloseUploadCancel = (evt) => {
     imgUploadOverlay.classList.add('hidden');
     bodyDoc.classList.remove('modal-open');
     uploadFile.value = '';
+    scaleControlValue.value  = 100;
+    imgUploadPreview.style.transform = '';
+    imgPreview.style.filter = '';
+    imgUploadPreview.className = '';
+    imgUploadPreview.classList.add('img-upload__preview');
+    imgUploadForm.reset();
   }
 };
 document.addEventListener('keydown', getEscCloseUploadCancel);
@@ -40,6 +65,26 @@ const getЕextDescriptionFocus = (evt) => {
 };
 textarea.addEventListener('keydown', getЕextDescriptionFocus);
 textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
+
+scaleControlValue.value = '100%';
+let controlValue = 100;
+
+const getPictureBig = () => {
+  if (controlValue < 100){
+    controlValue  += 25;
+    scaleControlValue.value = `${controlValue}${'%'}`;
+    imgUploadPreview.style.transform = `scale(${controlValue/100})`;
+  }
+};
+const getPictureSmall = () => {
+  if (controlValue > 25){
+    controlValue -= 25;
+    scaleControlValue.value = `${controlValue}${'%'}`;
+    imgUploadPreview.style.transform = `scale(${controlValue/100})`;
+  }
+};
+scaleControlBig.addEventListener('click', getPictureBig);
+scaleControlSmall.addEventListener('click', getPictureSmall);
 
 const getValidComment = (evt) => {
   evt.preventDefault();
