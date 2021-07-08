@@ -60,6 +60,19 @@ main {
 /**
  * Кнопка закрытия модального окна
  */
+.error__text {
+  border: 2px solid red;
+}
+.error__server-text {
+width: 100%;
+height: 50%;
+background-color: black;
+position: absolute;
+top: 10px;
+}
+.error__server-text p {
+  text-align: center;
+}
 
 .cancel {
   display: block;

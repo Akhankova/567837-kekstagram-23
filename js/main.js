@@ -4,16 +4,14 @@ import './big-picture.js';
 import {createSimilarFotos} from './miniature-picture.js';
 import {setUserFormSubmit} from './form.js';
 import {getCloseUploadCancel} from './popup.js';
+import {getData} from './api.js';
 
 const QUANTITY_GENERATED_OBJECTS = 25;
 
 //getArrayObject(QUANTITY_GENERATED_OBJECTS);
-
-fetch('https://23.javascript.pages.academy/kekstagram/data')
-  .then((response) => response.json())
-  .then((fotos) => {
+  getData((fotos) => {
     createSimilarFotos(fotos);
   });
 
-  setUserFormSubmit(getCloseUploadCancel);
+setUserFormSubmit(getCloseUploadCancel);
 //export {getArrayObject};

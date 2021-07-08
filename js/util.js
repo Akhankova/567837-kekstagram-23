@@ -1,8 +1,12 @@
+import {getCloseUploadCancel} from './popup.js';
+
 const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не должно быть меньше или равно минимальному значению';
 const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
 const MIN_QUANTITY_COMMENTS = 1;
 const MAX_QUANTITY_COMMENTS = 2;
-const ALERT_SHOW_TIME = 50;
+const ALERT_SHOW_TIME = 5000;
+const body = document.querySelector('body');
+
 
 const getRandomValue = function (minValue, maxValue) {
   if (minValue >= maxValue) {
@@ -62,4 +66,88 @@ const showAlert = (message) => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
 };
-export {getRandomValue, getRandomArrayElement, getRandomNumberIdComments, creatMessage, creatAvatar, showAlert};
+
+const getErrorText = () => {
+  const errorTextTempl = document.querySelector('#error').content;
+  const errorElement = errorTextTempl.cloneNode(true);
+  //errorElement.classList.add('hidden');
+  body.appendChild(errorElement);
+  getCloseUploadCancel();
+  console.log(errorElement);
+
+  const error = document.querySelector('.error');
+  const errorButton = document.querySelector('.error__button');
+  console.log(errorButton);
+  const getCloseError = () => {
+    error.classList.add('hidden');
+    error.remove();
+  }
+  const getEscCloseError = (evt) => {
+    if (evt.keyCode === 27) {
+      evt.preventDefault();
+      error.classList.add('hidden');
+      error.remove();
+    }
+  };
+  const getCloseErrorDisplayClick = (evt) => {
+    if (evt.target === error) {
+      error.classList.add('hidden');
+      error.remove();
+    }
+  }
+  document.addEventListener('keydown', getEscCloseError);
+  document.addEventListener('click', getCloseErrorDisplayClick);
+  errorButton.addEventListener('click', getCloseError);
+}
+
+
+const getSuccessText = () => {
+  const successTextTempl = document.querySelector('#success').content;
+  const successElement = successTextTempl.cloneNode(true);
+  body.appendChild(successElement);
+  getCloseUploadCancel();
+
+
+  const success = document.querySelector('.success');
+  const successButton = document.querySelector('.success__button');
+
+  const getCloseSuccess = () => {
+    success.classList.add('hidden');
+    success.remove();
+  }
+  const getEscCloseSuccess = (evt) => {
+    if (evt.keyCode === 27) {
+      evt.preventDefault();
+      success.classList.add('hidden');
+      success.remove();
+    }
+  };
+  const getCloseSuccessDisplayClick = (evt) => {
+    if (evt.target === success) {
+      success.classList.add('hidden');
+      success.remove();
+    }
+  }
+  document.addEventListener('keydown', getEscCloseSuccess);
+  document.addEventListener('click', getCloseSuccessDisplayClick);
+  successButton.addEventListener('click', getCloseSuccess);
+}
+
+
+const getErrorServerElement = () => {
+    const errorElementServer = document.createElement('section');
+    errorElementServer.classList.add('error__server-text');
+    const serverElementText = document.createElement('p');
+    errorElementServer.classList.add('hidden');
+    serverElementText.textContent = 'Произошла ошибка запроса';
+    serverElementText.style.fontSize = '48pt';
+    serverElementText.style.color = 'red';
+    errorElementServer.appendChild(serverElementText);
+    body.appendChild(errorElementServer);
+    const getPopupErrorServer = () => {
+      errorElementServer.classList.remove('hidden');
+    };
+    getPopupErrorServer();
+};
+
+  export {getRandomValue, getRandomArrayElement, getRandomNumberIdComments, creatMessage, creatAvatar, showAlert, getErrorText, getSuccessText, getErrorServerElement};
