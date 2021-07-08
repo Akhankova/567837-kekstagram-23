@@ -10,14 +10,14 @@ const getData = (onSuccess) => {
       }
     })
     .then((fotos) => {
-    onSuccess(fotos);
+      onSuccess(fotos);
     })
     .catch(() => {
       getErrorServerElement();
     });
 };
 
-const sendData = (getSuccessText, getErrorText, body,) => {
+const sendData = (getSuccessText, getErrorText, body) => {
   fetch(
     'https://23.javascript.pages.academy/kekstagram',
     {
