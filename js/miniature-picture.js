@@ -1,19 +1,12 @@
-//import {getArrayObject} from './data.js';
 import {getBigPictures} from './big-picture.js';
 
-//import {getSocialComment} from './big-picture.js';
-
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
-//const commentsLoader = document.querySelector('.comments-loader');
 const body = document.querySelector('body');
-//const socialCommentCount = document.querySelector('.social__comment-count');
 const bigPicture = document.querySelector('.big-picture');
-const QUANTITY_OBJECTS = 25;
 const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-//const similarPictures = getArrayObject(QUANTITY_OBJECTS);
 
 const createSimilarFotos = (similarPictures) => {
   const similarListFragment = document.createDocumentFragment();
@@ -26,8 +19,6 @@ const createSimilarFotos = (similarPictures) => {
 
     const getClickMiniature = () => {
       bigPicture.classList.remove('hidden');
-      //socialCommentCount.classList.add('hidden');
-      //commentsLoader.classList.add('hidden');
       body.classList.add('modal-open');
       getBigPictures({url, likes, comments, description});
     };
@@ -35,7 +26,6 @@ const createSimilarFotos = (similarPictures) => {
   });
   pictures.appendChild(similarListFragment);
 };
-//pictures.appendChild(createSimilarFotos(similarPictures));
 
 const getCloseBigPicture = () => {
   bigPicture.classList.add('hidden');

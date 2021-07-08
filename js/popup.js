@@ -8,7 +8,6 @@ const imgPreview = imgUploadPreview.querySelector('img');
 const imgUploadForm = document.querySelector('.img-upload__form');
 
 const getCloseUploadCancel = () => {
-  //evt.preventDefault();
   imgUploadOverlay.classList.add('hidden');
   bodyDoc.classList.remove('modal-open');
   uploadFile.value = '';

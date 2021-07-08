@@ -5,13 +5,9 @@ import {sendData} from './api.js';
 import {getSuccessText} from './util.js';
 import {getErrorText} from './util.js';
 
-
-
-
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const bodyDoc = document.querySelector('body');
-//const uploadCancel = document.querySelector('#upload-cancel');
 const textarea = document.querySelector('textarea');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgPreview = imgUploadPreview.querySelector('img');
@@ -23,7 +19,6 @@ const textDescription = document.querySelector('.text__description');
 const scaleControlSmall = document.querySelector('.scale__control--smaller');
 const scaleControlBig = document.querySelector('.scale__control--bigger');
 const imgUploadForm = document.querySelector('.img-upload__form');
-//const imgUploadSubmit = document.querySelector('.img-upload__submit');
 
 const getInputUploadFile = (evt) => {
   evt.preventDefault();
@@ -62,7 +57,6 @@ textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
 
 scaleControlValue.value = '100%';
 let controlValue = 100;
-
 const getPictureBig = () => {
   if (controlValue < 100){
     controlValue  += 25;
@@ -103,13 +97,13 @@ const getValidHashtags = (evt) => {
   const hashtags = textHashtagToUp.split(' ');
   if (hashtags.length > 5 ) {
     textHashtags.setCustomValidity('Hельзя указать больше пяти хэш-тегов');
-  textHashtags.classList.add('error__text');
+    textHashtags.classList.add('error__text');
   }  else if (hashtags.length < 1) {
     textHashtags.setCustomValidity('');
     textHashtags.classList.remove('error__text');
   }  else {textHashtags.setCustomValidity('');
-  textHashtags.classList.remove('error__text');
-}
+    textHashtags.classList.remove('error__text');
+  }
   textHashtags.reportValidity();
 
   for (let index=0; index<hashtags.length; index++) {
@@ -128,8 +122,8 @@ const getValidHashtags = (evt) => {
     } else if (!hashtagArrayIncl.includes(hashtags[index])) {
       hashtagArrayIncl.push(hashtags[index]);
     } else {textHashtags.setCustomValidity('');
-    textHashtags.classList.remove('error__text');
-  }
+      textHashtags.classList.remove('error__text');
+    }
     textHashtags.reportValidity();
   }
 };
@@ -138,7 +132,7 @@ textHashtags.addEventListener('input', getValidHashtags);
 const setUserFormSubmit = () => {
   imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const formData = new FormData(evt.target);
+    //const formData = new FormData(evt.target);
     sendData(
       () => getSuccessText(),
       () => getErrorText(),
@@ -147,6 +141,4 @@ const setUserFormSubmit = () => {
   });
 };
 
-export {setUserFormSubmit}
-
-
+export {setUserFormSubmit};
