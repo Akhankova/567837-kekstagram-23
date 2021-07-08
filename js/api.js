@@ -1,20 +1,20 @@
-import {getErrorText} from './util.js';
-import {getSuccessText} from './util.js';
+//import {getErrorText} from './util.js';
+//import {getSuccessText} from './util.js';
 import {getErrorServerElement} from './util.js';
 
-const getData = (onSuccess, getErrorServer) => {
+const getData = (onSuccess) => {
   fetch('https://23.javascript.pages.academy/kekstagram/data')
-  .then((response) => {
-    if (response.ok) {
-      return response.json();
-    }
-  })
-  .then((fotos) => {
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((fotos) => {
     onSuccess(fotos);
-  })
-  .catch(() => {
-    getErrorServerElement();
-  });
+    })
+    .catch(() => {
+      getErrorServerElement();
+    });
 };
 
 const sendData = (getSuccessText, getErrorText, body,) => {
@@ -25,16 +25,16 @@ const sendData = (getSuccessText, getErrorText, body,) => {
       body,
     },
   )
-  .then((response) => {
-    if (response.ok) {
-      getSuccessText();
-    } else {
+    .then((response) => {
+      if (response.ok) {
+        getSuccessText();
+      } else {
+        getErrorText();
+      }
+    })
+    .catch(() => {
       getErrorText();
-    }
-  })
-  .catch(() => {
-    getErrorText();
-  });
+    });
 };
 
 export {getData, sendData};
