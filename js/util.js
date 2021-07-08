@@ -2,6 +2,7 @@ const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не
 const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
 const MIN_QUANTITY_COMMENTS = 1;
 const MAX_QUANTITY_COMMENTS = 2;
+const ALERT_SHOW_TIME = 50;
 
 const getRandomValue = function (minValue, maxValue) {
   if (minValue >= maxValue) {
@@ -60,5 +61,5 @@ const showAlert = (message) => {
   setTimeout(() => {
     alertContainer.remove();
   }, ALERT_SHOW_TIME);
-}
+};
 export {getRandomValue, getRandomArrayElement, getRandomNumberIdComments, creatMessage, creatAvatar, showAlert};
