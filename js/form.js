@@ -1,22 +1,25 @@
 
 import './nouislider/nouislider.js';
 import './slider.js';
+import {showAlert} from './util.js';
 
-const COMMENT_LENGTH = 140;
+
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const bodyDoc = document.querySelector('body');
 const uploadCancel = document.querySelector('#upload-cancel');
-const textHashtags = document.querySelector('.text__hashtags');
-const textDescription = document.querySelector('.text__description');
 const textarea = document.querySelector('textarea');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgPreview = imgUploadPreview.querySelector('img');
+const effectLevelSlider = document.querySelector('.effect-level__slider');
+const textHashtags = document.querySelector('.text__hashtags');
 const scaleControlValue = document.querySelector('.scale__control--value');
+const COMMENT_LENGTH = 140;
+const textDescription = document.querySelector('.text__description');
 const scaleControlSmall = document.querySelector('.scale__control--smaller');
 const scaleControlBig = document.querySelector('.scale__control--bigger');
-const effectLevelSlider = document.querySelector('.effect-level__slider');
 const imgUploadForm = document.querySelector('.img-upload__form');
+const imgUploadSubmit = document.querySelector('.img-upload__submit');
 
 const getInputUploadFile = (evt) => {
   evt.preventDefault();
@@ -26,20 +29,6 @@ const getInputUploadFile = (evt) => {
   effectLevelSlider.classList.add('hidden');
 };
 uploadFile.addEventListener('input', getInputUploadFile);
-
-const getCloseUploadCancel = (evt) => {
-  evt.preventDefault();
-  imgUploadOverlay.classList.add('hidden');
-  bodyDoc.classList.remove('modal-open');
-  uploadFile.value = '';
-  scaleControlValue.value  = '';
-  imgUploadPreview.style.transform = '';
-  imgPreview.style.filter = '';
-  imgUploadPreview.className = '';
-  imgUploadPreview.classList.add('img-upload__preview');
-  imgUploadForm.reset();
-};
-uploadCancel.addEventListener('click', getCloseUploadCancel);
 
 const getEscCloseUploadCancel = (evt) => {
   if (evt.keyCode === 27) {
@@ -65,6 +54,7 @@ const getЕextDescriptionFocus = (evt) => {
 };
 textarea.addEventListener('keydown', getЕextDescriptionFocus);
 textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
+
 
 scaleControlValue.value = '100%';
 let controlValue = 100;
@@ -128,5 +118,22 @@ const getValidHashtags = (evt) => {
   }
 };
 textHashtags.addEventListener('input', getValidHashtags);
+
+const setUserFormSubmit = (onSuccess) => {
+  imgUploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+
+    fetch(
+      'https://23.javascript.pages.academy/kekstagram',
+      {
+        method: 'POST',
+        body: formData,
+      },
+    ).then(() => onSuccess());
+  });
+};
+
+export {setUserFormSubmit}
 
 

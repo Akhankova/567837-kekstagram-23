@@ -1,4 +1,4 @@
-import {getArrayObject} from './data.js';
+//import {getArrayObject} from './data.js';
 import {getBigPictures} from './big-picture.js';
 
 //import {getSocialComment} from './big-picture.js';
@@ -13,11 +13,11 @@ const pictures = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
-const similarPictures = getArrayObject(QUANTITY_OBJECTS);
+//const similarPictures = getArrayObject(QUANTITY_OBJECTS);
 
-const createSimilarFotos = (foto) => {
+const createSimilarFotos = (similarPictures) => {
   const similarListFragment = document.createDocumentFragment();
-  foto.forEach(({url, likes, comments, description}) => {
+  similarPictures.forEach(({url, likes, comments, description}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
     pictureElement.querySelector('img').src = url;
     pictureElement.querySelector('.picture__likes').textContent = likes;
@@ -33,10 +33,10 @@ const createSimilarFotos = (foto) => {
     };
     pictureElement.addEventListener('click', getClickMiniature);
   });
-  return similarListFragment;
-
+  pictures.appendChild(similarListFragment);
 };
-pictures.appendChild(createSimilarFotos(similarPictures));
+//pictures.appendChild(createSimilarFotos(similarPictures));
+
 const getCloseBigPicture = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -49,3 +49,4 @@ const getEscClosePicture = (evt) => {
 };
 
 document.addEventListener('keydown', getEscClosePicture);
+export {createSimilarFotos};
