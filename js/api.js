@@ -1,6 +1,7 @@
 //import {getErrorText} from './util.js';
 //import {getSuccessText} from './util.js';
 import {getErrorServerElement} from './util.js';
+const imgFilters = document.querySelector('.img-filters');
 
 const getData = (onSuccess) => {
   fetch('https://23.javascript.pages.academy/kekstagram/data')
@@ -10,7 +11,8 @@ const getData = (onSuccess) => {
       }
     })
     .then((fotos) => {
-      onSuccess(fotos);
+      onSuccess(fotos),
+      imgFilters.classList.remove('img-filters--inactive');
     })
     .catch(() => {
       getErrorServerElement();

@@ -9,6 +9,8 @@ const pictureTemplate = document.querySelector('#picture')
   .querySelector('.picture');
 
 const createSimilarFotos = (similarPictures) => {
+  console.log(similarPictures);
+  console.log(similarPictures[1].likes);
   const similarListFragment = document.createDocumentFragment();
   similarPictures.forEach(({url, likes, comments, description}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
