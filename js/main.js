@@ -6,7 +6,10 @@ import {setUserFormSubmit} from './form.js';
 import {getCloseUploadCancel} from './popup.js';
 import {getData} from './api.js';
 
+
 getData((fotos) => {
   createSimilarFotos(fotos);
 });
+
 setUserFormSubmit(getCloseUploadCancel);
+

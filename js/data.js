@@ -9,6 +9,7 @@ const MIN_COMMENT = 1;
 
 
 const MAX_VALUE_AVATAR = 6;
+
 const commentsMessages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
@@ -62,5 +63,6 @@ const getArrayObject = (value) => {
   }
   return similarFotos;
 };
+
 export {getArrayObject, createFotoDescription};
 

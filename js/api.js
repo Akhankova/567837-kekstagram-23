@@ -1,10 +1,11 @@
-//import {getErrorText} from './util.js';
-//import {getSuccessText} from './util.js';
 import {getErrorServerElement} from './util.js';
+
+const GET_DATA_ADDRESS = 'https://23.javascript.pages.academy/kekstagram/data';
+const SEND_DATA_ADDRESS = 'https://23.javascript.pages.academy/kekstagram';
 const imgFilters = document.querySelector('.img-filters');
 
 const getData = (onSuccess) => {
-  fetch('https://23.javascript.pages.academy/kekstagram/data')
+  fetch(GET_DATA_ADDRESS)
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -21,7 +22,7 @@ const getData = (onSuccess) => {
 
 const sendData = (getSuccessText, getErrorText, body) => {
   fetch(
-    'https://23.javascript.pages.academy/kekstagram',
+    SEND_DATA_ADDRESS,
     {
       method: 'POST',
       body,

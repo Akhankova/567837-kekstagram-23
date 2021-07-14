@@ -4,7 +4,7 @@ const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не
 const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
 const MIN_QUANTITY_COMMENTS = 1;
 const MAX_QUANTITY_COMMENTS = 2;
-const ALERT_SHOW_TIME = 5000;
+const KEY_CODE = 27;
 const body = document.querySelector('body');
 
 
@@ -46,31 +46,10 @@ const creatAvatar = (maxValueAvatar, index) => {
   }
   return index;
 };
-const showAlert = (message) => {
-  const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 100;
-  alertContainer.style.position = 'absolute';
-  alertContainer.style.left = 0;
-  alertContainer.style.top = 0;
-  alertContainer.style.right = 0;
-  alertContainer.style.padding = '10px 3px';
-  alertContainer.style.fontSize = '30px';
-  alertContainer.style.textAlign = 'center';
-  alertContainer.style.backgroundColor = 'red';
-
-  alertContainer.textContent = message;
-
-  document.body.append(alertContainer);
-
-  setTimeout(() => {
-    alertContainer.remove();
-  }, ALERT_SHOW_TIME);
-};
 
 const getErrorText = () => {
   const errorTextTempl = document.querySelector('#error').content;
   const errorElement = errorTextTempl.cloneNode(true);
-  //errorElement.classList.add('hidden');
   body.appendChild(errorElement);
   getCloseUploadCancel();
 
@@ -113,7 +92,7 @@ const getSuccessText = () => {
     success.remove();
   };
   const getEscCloseSuccess = (evt) => {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KEY_CODE) {
       evt.preventDefault();
       success.classList.add('hidden');
       success.remove();
@@ -147,4 +126,12 @@ const getErrorServerElement = () => {
   getPopupErrorServer();
 };
 
-export {getRandomValue, getRandomArrayElement, getRandomNumberIdComments, creatMessage, creatAvatar, showAlert, getErrorText, getSuccessText, getErrorServerElement};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+export {getRandomValue, getRandomArrayElement, getRandomNumberIdComments, creatMessage, creatAvatar, getErrorText, getSuccessText, getErrorServerElement, debounce};
+

@@ -1,10 +1,7 @@
-
-//import { getRandomNumberIdComments } from "./util";
-
 const socialCommentCount = document.querySelector('.social__comment-count');
-//const commentsCount = document.querySelector('.comments-count');
 const socialСomments = document.querySelector('.social__comments');
 const socialСommentsLoader = document.querySelector('.comments-loader');
+
 const getSocialComment = (elements) => {
   socialСommentsLoader.classList.remove('hidden');
   const similarListFragment = document.createDocumentFragment();
