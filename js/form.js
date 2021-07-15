@@ -5,6 +5,12 @@ import {sendData} from './api.js';
 import {getSuccessText} from './util.js';
 import {getErrorText} from './util.js';
 
+let CONTROL_VALUE = 100;
+const CONTROL_VALUE_MIN = 25;
+const CONTROL_VALUE_MAX = 100;
+const COMMENT_LENGTH = 140;
+const HASHTAG_LANGTH = 20;
+
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const bodyDoc = document.querySelector('body');
@@ -14,11 +20,12 @@ const imgPreview = imgUploadPreview.querySelector('img');
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const textHashtags = document.querySelector('.text__hashtags');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const COMMENT_LENGTH = 140;
 const textDescription = document.querySelector('.text__description');
 const scaleControlSmall = document.querySelector('.scale__control--smaller');
 const scaleControlBig = document.querySelector('.scale__control--bigger');
 const imgUploadForm = document.querySelector('.img-upload__form');
+scaleControlValue.value = '100%';
+
 
 const getInputUploadFile = (evt) => {
   evt.preventDefault();
@@ -54,21 +61,18 @@ const getЕextDescriptionFocus = (evt) => {
 textarea.addEventListener('keydown', getЕextDescriptionFocus);
 textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
 
-
-scaleControlValue.value = '100%';
-let controlValue = 100;
 const getPictureBig = () => {
-  if (controlValue < 100){
-    controlValue  += 25;
-    scaleControlValue.value = `${controlValue}${'%'}`;
-    imgUploadPreview.style.transform = `scale(${controlValue/100})`;
+  if (CONTROL_VALUE < CONTROL_VALUE_MAX){
+    CONTROL_VALUE += CONTROL_VALUE_MIN;
+    scaleControlValue.value = `${CONTROL_VALUE}%`;
+    imgUploadPreview.style.transform = `scale(${CONTROL_VALUE/100})`;
   }
 };
 const getPictureSmall = () => {
-  if (controlValue > 25){
-    controlValue -= 25;
-    scaleControlValue.value = `${controlValue}${'%'}`;
-    imgUploadPreview.style.transform = `scale(${controlValue/100})`;
+  if (CONTROL_VALUE > CONTROL_VALUE_MIN){
+    CONTROL_VALUE -= CONTROL_VALUE_MIN;
+    scaleControlValue.value = `${CONTROL_VALUE}%`;
+    imgUploadPreview.style.transform = `scale(${CONTROL_VALUE/100})`;
   }
 };
 scaleControlBig.addEventListener('click', getPictureBig);
@@ -106,14 +110,14 @@ const getValidHashtags = (evt) => {
   }
   textHashtags.reportValidity();
 
-  for (let index=0; index<hashtags.length; index++) {
+  for (let index = 0; index < hashtags.length; index ++) {
     if (hashtags[index].length < 1) {
       textHashtags.setCustomValidity('');
       textHashtags.classList.remove('error__text');
-    } else if (re.test(hashtags[index]) === false) {
+    } else if (!re.test(hashtags[index])) {
       textHashtags.setCustomValidity('Неверный параметр');
       textHashtags.classList.add('error__text');
-    } else if (hashtags[index].length > 20) {
+    } else if (hashtags[index].length > HASHTAG_LANGTH) {
       textHashtags.setCustomValidity('Максимальная длина хеш-тега не более 20 символов');
       textHashtags.classList.add('error__text');
     } else if (hashtagArrayIncl.includes(hashtags[index])) {
@@ -132,7 +136,6 @@ textHashtags.addEventListener('input', getValidHashtags);
 const setUserFormSubmit = () => {
   imgUploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    //const formData = new FormData(evt.target);
     sendData(
       () => getSuccessText(),
       () => getErrorText(),

@@ -1,3 +1,4 @@
+let effectValue = '';
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgUploadForm = document.querySelector('.img-upload__form');
@@ -49,7 +50,6 @@ noUiSlider.create(effectLevelSlider, {
   },
 });
 
-let effectValue = '';
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
