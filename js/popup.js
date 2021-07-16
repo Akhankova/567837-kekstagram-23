@@ -18,7 +18,7 @@ const closeModal = () => {
   scaleControlValue.value  = '';
   imgUploadPreview.style.transform = '';
   imgPreview.style.filter = '';
-  imgUploadPreview.className = '';
+  imgPreview.className = '';
   imgUploadPreview.classList.add('img-upload__preview');
   imgUploadForm.reset();
 };

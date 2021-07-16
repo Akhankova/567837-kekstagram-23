@@ -56,26 +56,21 @@ noUiSlider.create(effectLevelSlider, {
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
-    imgUploadPreview.className = '';
-    imgUploadPreview.classList.add('img-upload__preview', `effects__preview--${evt.target.value}`);
+    imgPreview.className = '';
+    imgPreview.classList.add(`effects__preview--${evt.target.value}`);
     effectValue = evt.target.value;
     effectLevelSlider.noUiSlider.updateOptions({
       range: {
         min: effectMin[evt.target.value],
         max: effectMax[evt.target.value],
       },
-      start: 0,
+      start: effectMax[evt.target.value],
       step: effectStep[evt.target.value],
     });
-
-    if (evt.target.value === 'heat') {
-      effectLevelSlider.noUiSlider.set(1);
-    }
     if (evt.target.value === 'none') {
       imgPreview.style.filter = '';
       effectLevelSlider.classList.add('hidden');
     }
-    effectLevelSlider.noUiSlider.set(0);
   }
 };
 imgUploadForm.addEventListener('change', getCheck);
