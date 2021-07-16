@@ -3,7 +3,7 @@ import {getCloseUploadCancel} from './popup.js';
 const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не должно быть меньше или равно минимальному значению';
 const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
 const KEY_CODE = 27;
-const body = document.querySelector('body');
+const documentBody = document.querySelector('body');
 
 const getRandomValue = function (minValue, maxValue) {
   if (minValue >= maxValue) {
@@ -18,7 +18,7 @@ const getRandomValue = function (minValue, maxValue) {
 const getErrorText = () => {
   const errorTextTempl = document.querySelector('#error').content;
   const errorElement = errorTextTempl.cloneNode(true);
-  body.appendChild(errorElement);
+  documentBody.appendChild(errorElement);
   getCloseUploadCancel();
 
   const error = document.querySelector('.error');
@@ -49,7 +49,7 @@ const getErrorText = () => {
 const getSuccessText = () => {
   const successTextTempl = document.querySelector('#success').content;
   const successElement = successTextTempl.cloneNode(true);
-  body.appendChild(successElement);
+  documentBody.appendChild(successElement);
   getCloseUploadCancel();
 
   const success = document.querySelector('.success');
@@ -86,7 +86,7 @@ const getErrorServerElement = () => {
   serverElementText.style.fontSize = '48pt';
   serverElementText.style.color = 'red';
   errorElementServer.appendChild(serverElementText);
-  body.appendChild(errorElementServer);
+  documentBody.appendChild(errorElementServer);
   const getPopupErrorServer = () => {
     errorElementServer.classList.remove('hidden');
   };

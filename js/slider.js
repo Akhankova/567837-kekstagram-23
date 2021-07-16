@@ -53,6 +53,7 @@ noUiSlider.create(effectLevelSlider, {
   },
 });
 
+
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
