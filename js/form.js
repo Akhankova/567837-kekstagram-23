@@ -10,56 +10,16 @@ const CONTROL_VALUE_MIN = 25;
 const CONTROL_VALUE_MAX = 100;
 const COMMENT_LENGTH = 140;
 const HASHTAG_LANGTH = 20;
+const HASHTAGS_LANGTH = 5;
+const HASHTAGS_LANGTH_MIN = 1;
 
-const uploadFile = document.querySelector('#upload-file');
-const imgUploadOverlay = document.querySelector('.img-upload__overlay');
-const bodyDoc = document.querySelector('body');
-const textarea = document.querySelector('textarea');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
-const imgPreview = imgUploadPreview.querySelector('img');
-const effectLevelSlider = document.querySelector('.effect-level__slider');
 const textHashtags = document.querySelector('.text__hashtags');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const textDescription = document.querySelector('.text__description');
 const scaleControlSmall = document.querySelector('.scale__control--smaller');
 const scaleControlBig = document.querySelector('.scale__control--bigger');
 const imgUploadForm = document.querySelector('.img-upload__form');
-scaleControlValue.value = '100%';
-
-
-const getInputUploadFile = (evt) => {
-  evt.preventDefault();
-  imgUploadOverlay.classList.remove('hidden');
-  bodyDoc.classList.add('modal-open');
-  scaleControlValue.value = '100%';
-  effectLevelSlider.classList.add('hidden');
-};
-uploadFile.addEventListener('input', getInputUploadFile);
-
-const getEscCloseUploadCancel = (evt) => {
-  if (evt.keyCode === 27) {
-    evt.preventDefault();
-    imgUploadOverlay.classList.add('hidden');
-    bodyDoc.classList.remove('modal-open');
-    uploadFile.value = '';
-    scaleControlValue.value  = 100;
-    imgUploadPreview.style.transform = '';
-    imgPreview.style.filter = '';
-    imgUploadPreview.className = '';
-    imgUploadPreview.classList.add('img-upload__preview');
-    imgUploadForm.reset();
-  }
-};
-document.addEventListener('keydown', getEscCloseUploadCancel);
-
-const getЕextDescriptionFocus = (evt) => {
-  if (evt.keyCode === 27) {
-    evt.preventDefault();
-    evt.stopPropagation();
-  }
-};
-textarea.addEventListener('keydown', getЕextDescriptionFocus);
-textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
 
 const getPictureBig = () => {
   if (CONTROL_VALUE < CONTROL_VALUE_MAX){
@@ -99,10 +59,10 @@ const getValidHashtags = (evt) => {
   const hashtag = textHashtags.value;
   const textHashtagToUp = hashtag.toLowerCase();
   const hashtags = textHashtagToUp.split(' ');
-  if (hashtags.length > 5 ) {
+  if (hashtags.length > HASHTAGS_LANGTH) {
     textHashtags.setCustomValidity('Hельзя указать больше пяти хэш-тегов');
     textHashtags.classList.add('error__text');
-  }  else if (hashtags.length < 1) {
+  }  else if (hashtags.length < HASHTAGS_LANGTH_MIN) {
     textHashtags.setCustomValidity('');
     textHashtags.classList.remove('error__text');
   }  else {textHashtags.setCustomValidity('');
@@ -111,7 +71,7 @@ const getValidHashtags = (evt) => {
   textHashtags.reportValidity();
 
   for (let index = 0; index < hashtags.length; index ++) {
-    if (hashtags[index].length < 1) {
+    if (hashtags[index].length < HASHTAGS_LANGTH_MIN) {
       textHashtags.setCustomValidity('');
       textHashtags.classList.remove('error__text');
     } else if (!re.test(hashtags[index])) {

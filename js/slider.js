@@ -13,6 +13,7 @@ const effectStep = {
   phobos: 0.1,
   heat: 0.1,
 };
+
 const effectMax = {
   none: 0.1,
   chrome: 1,
@@ -21,6 +22,7 @@ const effectMax = {
   phobos: 3,
   heat: 3,
 };
+
 const effectMin = {
   none: 0,
   chrome: 0,
@@ -29,6 +31,7 @@ const effectMin = {
   phobos: 0,
   heat: 1,
 };
+
 noUiSlider.create(effectLevelSlider, {
   range: {
     min: 0,
@@ -77,7 +80,7 @@ const getCheck = (evt) => {
 };
 imgUploadForm.addEventListener('change', getCheck);
 
-effectLevelSlider.noUiSlider.on('update', (value, handle, unencoded) => {
+effectLevelSlider.noUiSlider.on('update', (__, handle, unencoded) => {
   effectLevelValue.value = unencoded[handle];
   const effect = {
     none: 'none',
