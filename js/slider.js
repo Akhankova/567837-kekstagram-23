@@ -13,6 +13,7 @@ const effectStep = {
   phobos: 0.1,
   heat: 0.1,
 };
+
 const effectMax = {
   none: 0.1,
   chrome: 1,
@@ -21,6 +22,7 @@ const effectMax = {
   phobos: 3,
   heat: 3,
 };
+
 const effectMin = {
   none: 0,
   chrome: 0,
@@ -29,6 +31,7 @@ const effectMin = {
   phobos: 0,
   heat: 1,
 };
+
 noUiSlider.create(effectLevelSlider, {
   range: {
     min: 0,
@@ -50,34 +53,30 @@ noUiSlider.create(effectLevelSlider, {
   },
 });
 
+
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
-    imgUploadPreview.className = '';
-    imgUploadPreview.classList.add('img-upload__preview', `effects__preview--${evt.target.value}`);
+    imgPreview.className = '';
+    imgPreview.classList.add(`effects__preview--${evt.target.value}`);
     effectValue = evt.target.value;
     effectLevelSlider.noUiSlider.updateOptions({
       range: {
         min: effectMin[evt.target.value],
         max: effectMax[evt.target.value],
       },
-      start: 0,
+      start: effectMax[evt.target.value],
       step: effectStep[evt.target.value],
     });
-
-    if (evt.target.value === 'heat') {
-      effectLevelSlider.noUiSlider.set(1);
-    }
     if (evt.target.value === 'none') {
       imgPreview.style.filter = '';
       effectLevelSlider.classList.add('hidden');
     }
-    effectLevelSlider.noUiSlider.set(0);
   }
 };
 imgUploadForm.addEventListener('change', getCheck);
 
-effectLevelSlider.noUiSlider.on('update', (value, handle, unencoded) => {
+effectLevelSlider.noUiSlider.on('update', (__, handle, unencoded) => {
   effectLevelValue.value = unencoded[handle];
   const effect = {
     none: 'none',
