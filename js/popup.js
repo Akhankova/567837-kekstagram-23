@@ -10,6 +10,7 @@ const uploadCancel = document.querySelector('#upload-cancel');
 const imgPreview = imgUploadPreview.querySelector('img');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 
 const closeModal = () => {
   imgUploadOverlay.classList.add('hidden');
@@ -20,6 +21,14 @@ const closeModal = () => {
   imgPreview.style.filter = '';
   imgPreview.className = '';
   imgUploadPreview.classList.add('img-upload__preview');
+  textHashtags.classList.remove('error__text');
+  textHashtags.value = '';
+  textDescription.classList.remove('error__text');
+  textDescription.value = '';
+  textDescription.setCustomValidity('');
+  textHashtags.setCustomValidity('');
+  textDescription.reportValidity();
+  textHashtags.reportValidity();
   imgUploadForm.reset();
 };
 
@@ -42,7 +51,6 @@ const getInputUploadFile = (evt) => {
   bodyDoc.classList.add('modal-open');
   scaleControlValue.value = '100%';
   effectLevelSlider.classList.add('hidden');
-
   document.addEventListener('keydown', getEscCloseUploadCancel);
 };
 uploadFile.addEventListener('input', getInputUploadFile);

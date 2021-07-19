@@ -1,19 +1,7 @@
 import {getCloseUploadCancel} from './popup.js';
 
-const INVALID_VALUE_ERROR_TEXT = 'Максимальное значение не должно быть меньше или равно минимальному значению';
-const NEGATIVE_VALUE_ERROR_TEXT = 'Диапазон может быть только положительный';
 const KEY_CODE = 27;
 const documentBody = document.querySelector('body');
-
-const getRandomValue = function (minValue, maxValue) {
-  if (minValue >= maxValue) {
-    return INVALID_VALUE_ERROR_TEXT;
-  }
-  if (minValue < 0 || maxValue < 0) {
-    return NEGATIVE_VALUE_ERROR_TEXT;
-  }
-  return Math.floor(Math.random() * (maxValue - minValue + 1) + minValue);
-};
 
 const getErrorText = () => {
   const errorTextTempl = document.querySelector('#error').content;
@@ -54,7 +42,6 @@ const getSuccessText = () => {
 
   const success = document.querySelector('.success');
   const successButton = document.querySelector('.success__button');
-
   const getCloseSuccess = () => {
     success.classList.add('hidden');
     success.remove();
@@ -93,13 +80,5 @@ const getErrorServerElement = () => {
   getPopupErrorServer();
 };
 
-const debounce = (callback, timeoutDelay = 500) => {
-  let timeoutId;
-  return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
-  };
-};
-
-export {getRandomValue, getErrorText, getSuccessText, getErrorServerElement, debounce};
+export {getErrorText, getSuccessText, getErrorServerElement};
 

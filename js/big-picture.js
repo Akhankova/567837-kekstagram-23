@@ -1,6 +1,8 @@
 const socialCommentCount = document.querySelector('.social__comment-count');
 const socialСomments = document.querySelector('.social__comments');
 const socialСommentsLoader = document.querySelector('.comments-loader');
+const bigPictureImg = document.querySelector('.big-picture__img');
+const bigFoto = document.querySelector('.big-picture');
 
 const getSocialComment = (elements) => {
   socialСommentsLoader.classList.remove('hidden');
@@ -25,7 +27,7 @@ const getSocialComment = (elements) => {
       socialComment.appendChild(socialCommentImg);
       const socialCommentP = document.createElement('p');
       socialCommentP.classList.add('social__text');
-      socialCommentP.innerHTML = element.message;
+      socialCommentP.textContent = element.message;
       socialComment.appendChild(socialCommentP);
       secondListFragment.appendChild(socialComment);
       if (element === elements[elements.length-1]) {
@@ -44,8 +46,7 @@ const getSocialComment = (elements) => {
 };
 
 const getBigPictures = (element) => {
-  const bigPictureImg = document.querySelector('.big-picture__img');
-  const bigFoto = document.querySelector('.big-picture');
+  //const bigFoto = document.querySelector('.big-picture');
   bigPictureImg.querySelector('img').src = element.url;
   bigFoto.querySelector('.likes-count').textContent = element.likes;
   document.querySelector('.comments-count').textContent = element.comments.length;

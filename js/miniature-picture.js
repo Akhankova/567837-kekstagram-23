@@ -1,5 +1,6 @@
 import {getBigPictures} from './big-picture.js';
 
+const KEY_CODE = 27;
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
@@ -15,7 +16,7 @@ const closeBigPicture = () => {
 };
 
 const getEscClosePicture = (evt) => {
-  if (evt.keyCode === 27) {
+  if (evt.keyCode === KEY_CODE) {
     closeBigPicture();
     document.removeEventListener('keydown', getEscClosePicture);
   }
@@ -23,11 +24,9 @@ const getEscClosePicture = (evt) => {
 
 const getPictures = (similarPictures) => {
   const pictureLink = document.querySelectorAll('.picture');
-
   for (let index = 0; index < pictureLink.length; index ++) {
     pictureLink[index].remove();
   }
-
   const similarListFragment = document.createDocumentFragment();
   similarPictures.forEach(({url, likes, comments, description}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
