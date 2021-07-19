@@ -1,36 +1,37 @@
-let effectValue = '';
+const EffectStep = {
+  NONE: 0,
+  CHROME: 0.1,
+  SEPIA: 0.1,
+  MARVIN: 1,
+  PHOBOS: 0.1,
+  HEAT: 0.1,
+};
+
+const EffectMax = {
+  NONE: 0.1,
+  CHROME: 1,
+  SEPIA: 1,
+  MARVIN: 100,
+  PHOBOS: 3,
+  HEAT: 3,
+};
+
+const EffectMin = {
+  NONE: 0,
+  CHROME: 0,
+  SEPIA: 0,
+  MARVIN: 0,
+  PHOBOS: 0,
+  HEAT: 1,
+};
+
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const imgPreview = imgUploadPreview.querySelector('img');
 
-const effectStep = {
-  none: 0,
-  chrome: 0.1,
-  sepia: 0.1,
-  marvin: 1,
-  phobos: 0.1,
-  heat: 0.1,
-};
-
-const effectMax = {
-  none: 0.1,
-  chrome: 1,
-  sepia: 1,
-  marvin: 100,
-  phobos: 3,
-  heat: 3,
-};
-
-const effectMin = {
-  none: 0,
-  chrome: 0,
-  sepia: 0,
-  marvin: 0,
-  phobos: 0,
-  heat: 1,
-};
+let effectValue = '';
 
 noUiSlider.create(effectLevelSlider, {
   range: {
@@ -53,7 +54,6 @@ noUiSlider.create(effectLevelSlider, {
   },
 });
 
-
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
@@ -62,11 +62,11 @@ const getCheck = (evt) => {
     effectValue = evt.target.value;
     effectLevelSlider.noUiSlider.updateOptions({
       range: {
-        min: effectMin[evt.target.value],
-        max: effectMax[evt.target.value],
+        min: EffectMin[evt.target.value.toUpperCase()],
+        max: EffectMax[evt.target.value.toUpperCase()],
       },
-      start: effectMax[evt.target.value],
-      step: effectStep[evt.target.value],
+      start: EffectMax[evt.target.value.toUpperCase()],
+      step: EffectStep[evt.target.value.toUpperCase()],
     });
     if (evt.target.value === 'none') {
       imgPreview.style.filter = '';

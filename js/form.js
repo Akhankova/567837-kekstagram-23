@@ -5,14 +5,12 @@ import {sendData} from './api.js';
 import {getSuccessText} from './util.js';
 import {getErrorText} from './util.js';
 
-let CONTROL_VALUE = 100;
 const CONTROL_VALUE_MIN = 25;
 const CONTROL_VALUE_MAX = 100;
 const COMMENT_LENGTH = 140;
 const HASHTAG_LANGTH = 20;
 const HASHTAGS_LANGTH = 5;
-const HASHTAGS_LANGTH_MIN = 1;
-
+const HASHTAG_LANGTH_MIN = 2;
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const textHashtags = document.querySelector('.text__hashtags');
 const scaleControlValue = document.querySelector('.scale__control--value');
@@ -20,6 +18,8 @@ const textDescription = document.querySelector('.text__description');
 const scaleControlSmall = document.querySelector('.scale__control--smaller');
 const scaleControlBig = document.querySelector('.scale__control--bigger');
 const imgUploadForm = document.querySelector('.img-upload__form');
+const re = /^#[A-Za-zА-Яа-я0-9]{1,19}$/;
+let CONTROL_VALUE = 100;
 
 const getPictureBig = () => {
   if (CONTROL_VALUE < CONTROL_VALUE_MAX){
@@ -41,7 +41,10 @@ scaleControlSmall.addEventListener('click', getPictureSmall);
 const getValidComment = (evt) => {
   evt.preventDefault();
   const textDescriptionLength = textDescription.value.length;
-  if (textDescriptionLength > COMMENT_LENGTH) {
+  if (textDescriptionLength === 0) {
+    textDescription.setCustomValidity('');
+    textDescription.classList.remove('error__text');
+  } else if (textDescriptionLength > COMMENT_LENGTH) {
     textDescription.setCustomValidity(`Длина комментария не может составлять больше ${COMMENT_LENGTH} символов`);
     textDescription.classList.add('error__text');
   } else {
@@ -54,7 +57,6 @@ textDescription.addEventListener('input', getValidComment);
 
 const getValidHashtags = (evt) => {
   evt.preventDefault();
-  const re = /^#[A-Za-zА-Яа-я0-9]{2,19}$/;
   const hashtagArrayIncl = [];
   const hashtag = textHashtags.value;
   const textHashtagToUp = hashtag.toLowerCase();
@@ -62,7 +64,7 @@ const getValidHashtags = (evt) => {
   if (hashtags.length > HASHTAGS_LANGTH) {
     textHashtags.setCustomValidity('Hельзя указать больше пяти хэш-тегов');
     textHashtags.classList.add('error__text');
-  }  else if (hashtags.length < HASHTAGS_LANGTH_MIN) {
+  }  else if (hashtags.length < HASHTAGS_LANGTH) {
     textHashtags.setCustomValidity('');
     textHashtags.classList.remove('error__text');
   }  else {textHashtags.setCustomValidity('');
@@ -71,11 +73,17 @@ const getValidHashtags = (evt) => {
   textHashtags.reportValidity();
 
   for (let index = 0; index < hashtags.length; index ++) {
-    if (hashtags[index].length < HASHTAGS_LANGTH_MIN) {
+    if (textHashtags.value === '') {
       textHashtags.setCustomValidity('');
       textHashtags.classList.remove('error__text');
+    } else if (hashtags[0].length < 1) {
+      textHashtags.setCustomValidity('');
+      textHashtags.classList.remove('error__text');
+    } else if (hashtags[index].length < HASHTAG_LANGTH_MIN) {
+      textHashtags.setCustomValidity('Минимальная длина хеш-тега 2 символа');
+      textHashtags.classList.add('error__text');
     } else if (!re.test(hashtags[index])) {
-      textHashtags.setCustomValidity('Неверный параметр');
+      textHashtags.setCustomValidity('Неверный параметр: Хэш-тег должен начинаться с символа #; строка после решётки не может содержать пробелы, спецсимволы (#, @, $ и т. п.), символы пунктуации (тире, дефис, запятая и т. п.), эмодзи; максимальная длина одного хэш-тега 20 символов, включая #.');
       textHashtags.classList.add('error__text');
     } else if (hashtags[index].length > HASHTAG_LANGTH) {
       textHashtags.setCustomValidity('Максимальная длина хеш-тега не более 20 символов');
