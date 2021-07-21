@@ -5,6 +5,7 @@ const bigPictureCancel = document.querySelector('.big-picture__cancel');
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const pictures = document.querySelector('.pictures');
+const imgFilters = document.querySelector('.img-filters');
 const pictureTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
@@ -15,18 +16,17 @@ const closeBigPicture = () => {
   body.classList.remove('modal-open');
 };
 
-const getEscClosePicture = (evt) => {
+const onEscPress = (evt) => {
   if (evt.keyCode === KEY_CODE) {
     closeBigPicture();
-    document.removeEventListener('keydown', getEscClosePicture);
+    document.removeEventListener('keydown', onEscPress);
   }
 };
 
 const getPictures = (similarPictures) => {
+  imgFilters.classList.remove('img-filters--inactive');
   const pictureLink = document.querySelectorAll('.picture');
-  for (let index = 0; index < pictureLink.length; index ++) {
-    pictureLink[index].remove();
-  }
+  pictureLink.forEach((picture) => picture.remove());
   const similarListFragment = document.createDocumentFragment();
   similarPictures.forEach(({url, likes, comments, description}) => {
     const pictureElement = pictureTemplate.cloneNode(true);
@@ -35,13 +35,13 @@ const getPictures = (similarPictures) => {
     pictureElement.querySelector('.picture__comments').textContent = comments.length;
     similarListFragment.appendChild(pictureElement);
 
-    const getClickMiniature = () => {
+    const onMiniatureClick = () => {
       bigPicture.classList.remove('hidden');
       body.classList.add('modal-open');
       getBigPictures({url, likes, comments, description});
-      document.addEventListener('keydown', getEscClosePicture);
+      document.addEventListener('keydown', onEscPress);
     };
-    pictureElement.addEventListener('click', getClickMiniature);
+    pictureElement.addEventListener('click', onMiniatureClick);
   });
   pictures.appendChild(similarListFragment);
 };
@@ -51,10 +51,11 @@ const createSimilarFotos = (similarPictures) => {
   similarPicturesCopy = similarPictures.slice();
 };
 
-const getCloseBigPicture = () => {
+const onCloseClick = () => {
   closeBigPicture();
-  document.removeEventListener('keydown', getEscClosePicture);
+  document.removeEventListener('keydown', onEscPress);
 };
-bigPictureCancel.addEventListener('click', getCloseBigPicture);
+bigPictureCancel.addEventListener('click', onCloseClick);
+
 
 export {createSimilarFotos, getPictures, similarPicturesCopy};

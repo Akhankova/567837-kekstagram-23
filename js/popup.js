@@ -32,36 +32,36 @@ const closeModal = () => {
   imgUploadForm.reset();
 };
 
-const getEscCloseUploadCancel = (evt) => {
+const onEscModalPress = (evt) => {
   if (evt.keyCode === KEY_CODE) {
     closeModal();
-    document.removeEventListener('keydown', getEscCloseUploadCancel);
+    document.removeEventListener('keydown', onEscModalPress);
   }
 };
 
-const getCloseUploadCancel = () => {
+const onCloseModalClick = () => {
   closeModal();
-  document.removeEventListener('keydown', getEscCloseUploadCancel);
+  document.removeEventListener('keydown', onEscModalPress);
 };
-uploadCancel.addEventListener('click', getCloseUploadCancel);
+uploadCancel.addEventListener('click', onCloseModalClick);
 
-const getInputUploadFile = (evt) => {
+const onUploadFileChange = (evt) => {
   evt.preventDefault();
   imgUploadOverlay.classList.remove('hidden');
   bodyDoc.classList.add('modal-open');
   scaleControlValue.value = '100%';
   effectLevelSlider.classList.add('hidden');
-  document.addEventListener('keydown', getEscCloseUploadCancel);
+  document.addEventListener('keydown', onEscModalPress);
 };
-uploadFile.addEventListener('input', getInputUploadFile);
+uploadFile.addEventListener('input', onUploadFileChange);
 
-const getЕextDescriptionFocus = (evt) => {
+const onDocumentPress = (evt) => {
   if (evt.keyCode === KEY_CODE) {
     evt.preventDefault();
     evt.stopPropagation();
   }
 };
-textarea.addEventListener('keydown', getЕextDescriptionFocus);
-textHashtags.addEventListener('keydown', getЕextDescriptionFocus);
+textarea.addEventListener('keydown', onDocumentPress);
+textHashtags.addEventListener('keydown', onDocumentPress);
 
-export {getCloseUploadCancel};
+export {onCloseModalClick};
