@@ -10,26 +10,26 @@ const filterDiscussed = document.querySelector('#filter-discussed');
 const filterDefault = document.querySelector('#filter-default');
 const getShuffle = (arr) => { arr.sort(() => Math.round(Math.random() * NUMBER_FOR_MATH_RANDOM) - NUMBER_FOR_MATH_ROUND);};
 
-const getSortByDefault = debounce(() => {
+const onSortByDefaultClick = debounce(() => {
   filterDefault.classList.add('img-filters__button--active');
   filterDiscussed.classList.remove('img-filters__button--active');
   filterRandom.classList.remove('img-filters__button--active');
   const similarPicturesDefault = similarPicturesCopy;
   getPictures(similarPicturesDefault);
 }, RERENDER_DELAY);
-filterDefault.addEventListener('click', getSortByDefault);
+filterDefault.addEventListener('click', onSortByDefaultClick);
 
-const getSortByDiscussed = debounce(() => {
+const onSortByDiscussedClick = debounce(() => {
   filterDiscussed.classList.add('img-filters__button--active');
   filterRandom.classList.remove('img-filters__button--active');
   filterDefault.classList.remove('img-filters__button--active');
   let similarPicturesDiscussed = similarPicturesCopy.slice();
-  similarPicturesDiscussed = similarPicturesDiscussed.sort((first, second) => first.comments.length < second.comments.length ? 1 : -1);
+  similarPicturesDiscussed = similarPicturesDiscussed.sort((first, second) => second.comments.length - first.comments.length);
   getPictures(similarPicturesDiscussed);
 }, RERENDER_DELAY);
-filterDiscussed.addEventListener('click', getSortByDiscussed);
+filterDiscussed.addEventListener('click', onSortByDiscussedClick);
 
-const getSortByRandom = debounce(() => {
+const onSortByRandomClick = debounce(() => {
   filterRandom.classList.add('img-filters__button--active');
   filterDefault.classList.remove('img-filters__button--active');
   filterDiscussed.classList.remove('img-filters__button--active');
@@ -37,5 +37,5 @@ const getSortByRandom = debounce(() => {
   getShuffle(similarPictureCopie);
   getPictures(similarPictureCopie.slice(0, ARRAY_LENGTH));
 }, RERENDER_DELAY);
-filterRandom.addEventListener('click', getSortByRandom);
+filterRandom.addEventListener('click', onSortByRandomClick);
 

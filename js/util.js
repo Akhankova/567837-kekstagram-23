@@ -1,4 +1,4 @@
-import {getCloseUploadCancel} from './popup.js';
+import {onCloseModalClick} from './popup.js';
 
 const KEY_CODE = 27;
 const documentBody = document.querySelector('body');
@@ -7,7 +7,7 @@ const getErrorText = () => {
   const errorTextTempl = document.querySelector('#error').content;
   const errorElement = errorTextTempl.cloneNode(true);
   documentBody.appendChild(errorElement);
-  getCloseUploadCancel();
+  onCloseModalClick();
 
   const error = document.querySelector('.error');
   const errorButton = document.querySelector('.error__button');
@@ -16,7 +16,7 @@ const getErrorText = () => {
     error.remove();
   };
   const getEscCloseError = (evt) => {
-    if (evt.keyCode === 27) {
+    if (evt.keyCode === KEY_CODE) {
       evt.preventDefault();
       error.classList.add('hidden');
       error.remove();
@@ -38,30 +38,36 @@ const getSuccessText = () => {
   const successTextTempl = document.querySelector('#success').content;
   const successElement = successTextTempl.cloneNode(true);
   documentBody.appendChild(successElement);
-  getCloseUploadCancel();
+  onCloseModalClick();
 
   const success = document.querySelector('.success');
   const successButton = document.querySelector('.success__button');
-  const getCloseSuccess = () => {
-    success.classList.add('hidden');
-    success.remove();
-  };
-  const getEscCloseSuccess = (evt) => {
+
+  const onDocumentPress = (evt) => {
     if (evt.keyCode === KEY_CODE) {
       evt.preventDefault();
       success.classList.add('hidden');
       success.remove();
+      document.removeEventListener('keydown', onDocumentPress);
     }
   };
-  const getCloseSuccessDisplayClick = (evt) => {
+  const onDocumentClick = (evt) => {
     if (evt.target === success) {
       success.classList.add('hidden');
       success.remove();
+      document.removeEventListener('click', onDocumentClick);
+      document.removeEventListener('keydown', onDocumentPress);
     }
   };
-  document.addEventListener('keydown', getEscCloseSuccess);
-  document.addEventListener('click', getCloseSuccessDisplayClick);
-  successButton.addEventListener('click', getCloseSuccess);
+  const onCloseSuccessClick = () => {
+    success.classList.add('hidden');
+    success.remove();
+    document.removeEventListener('click', onDocumentClick);
+    document.removeEventListener('keydown', onDocumentPress);
+  };
+  document.addEventListener('keydown', onDocumentPress);
+  document.addEventListener('click', onDocumentClick);
+  successButton.addEventListener('click', onCloseSuccessClick);
 };
 
 const getErrorServerElement = () => {

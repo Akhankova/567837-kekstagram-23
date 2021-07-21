@@ -2,7 +2,6 @@ import {getErrorServerElement} from './util.js';
 
 const GET_DATA_ADDRESS = 'https://23.javascript.pages.academy/kekstagram/data';
 const SEND_DATA_ADDRESS = 'https://23.javascript.pages.academy/kekstagram';
-const imgFilters = document.querySelector('.img-filters');
 
 const getData = (onSuccess) => {
   fetch(GET_DATA_ADDRESS)
@@ -11,9 +10,8 @@ const getData = (onSuccess) => {
         return response.json();
       }
     })
-    .then((fotos) => {
-      onSuccess(fotos),
-      imgFilters.classList.remove('img-filters--inactive');
+    .then((photos) => {
+      onSuccess(photos);
     })
     .catch(() => {
       getErrorServerElement();

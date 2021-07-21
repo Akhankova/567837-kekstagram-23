@@ -1,3 +1,13 @@
+import './nouislider/nouislider.js';
+
+const RANGE_MIN = 0;
+const RANGE_MAX = 1;
+const RANGE_STEP = 0.1;
+const RANGE_START = 0;
+const RANGE_CONNECT = 'lower';
+const VALUE_TO_FIXED_MIN = 0;
+const VALUE_TO_FIXED_MAX = 1;
+const EMPTY_STRING = ' ';
 const EffectStep = {
   NONE: 0,
   CHROME: 0.1,
@@ -24,29 +34,28 @@ const EffectMin = {
   PHOBOS: 0,
   HEAT: 1,
 };
-
 const effectLevelSlider = document.querySelector('.effect-level__slider');
 const imgUploadPreview = document.querySelector('.img-upload__preview');
 const imgUploadForm = document.querySelector('.img-upload__form');
 const effectLevelValue = document.querySelector('.effect-level__value');
 const imgPreview = imgUploadPreview.querySelector('img');
 
-let effectValue = '';
+let effectValue = EMPTY_STRING;
 
 noUiSlider.create(effectLevelSlider, {
   range: {
-    min: 0,
-    max: 1,
+    min: RANGE_MIN,
+    max: RANGE_MAX,
   },
-  start: 0,
-  step: 0.1,
-  connect: 'lower',
+  start: RANGE_START,
+  step: RANGE_STEP,
+  connect: RANGE_CONNECT,
   format: {
     to: function (value) {
       if (Number.isInteger(value)) {
-        return value.toFixed(0);
+        return value.toFixed(VALUE_TO_FIXED_MIN);
       }
-      return value.toFixed(1);
+      return value.toFixed(VALUE_TO_FIXED_MAX);
     },
     from: function (value) {
       return parseFloat(value);
@@ -57,7 +66,7 @@ noUiSlider.create(effectLevelSlider, {
 const getCheck = (evt) => {
   if (evt.target.name === 'effect')  {
     effectLevelSlider.classList.remove('hidden');
-    imgPreview.className = '';
+    imgPreview.className = EMPTY_STRING;
     imgPreview.classList.add(`effects__preview--${evt.target.value}`);
     effectValue = evt.target.value;
     effectLevelSlider.noUiSlider.updateOptions({
@@ -69,7 +78,7 @@ const getCheck = (evt) => {
       step: EffectStep[evt.target.value.toUpperCase()],
     });
     if (evt.target.value === 'none') {
-      imgPreview.style.filter = '';
+      imgPreview.style.filter = EMPTY_STRING;
       effectLevelSlider.classList.add('hidden');
     }
   }
@@ -88,4 +97,4 @@ effectLevelSlider.noUiSlider.on('update', (__, handle, unencoded) => {
   };
   imgPreview.style.filter = effect[effectValue];
 });
-
+export {EMPTY_STRING};
