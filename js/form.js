@@ -31,11 +31,10 @@ const onDecreaseButtonClick = () => {
     CONTROL_VALUE -= CONTROL_VALUE_MIN;
     scaleControlValue.value = `${CONTROL_VALUE}%`;
     imgPreview.style = `transform: scale(${CONTROL_VALUE/100})`;
-    console.log(CONTROL_VALUE);
-    console.log('Клик!');
   }
 };
 scaleControlSmall.addEventListener('click', onDecreaseButtonClick);
+
 const onZoomButtonClick = () => {
   if (CONTROL_VALUE < CONTROL_VALUE_MAX){
     CONTROL_VALUE += CONTROL_VALUE_MIN;
