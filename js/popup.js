@@ -16,8 +16,8 @@ const closeModal = () => {
   imgUploadOverlay.classList.add('hidden');
   bodyDoc.classList.remove('modal-open');
   uploadFile.value = '';
-  scaleControlValue.value  = '';
-  imgUploadPreview.style.transform = '';
+  scaleControlValue.value = '';
+  imgPreview.style.transform = '';
   imgPreview.style.filter = '';
   imgPreview.className = '';
   imgUploadPreview.classList.add('img-upload__preview');
